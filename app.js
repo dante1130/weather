@@ -17,9 +17,9 @@ app.get("/", (req, res) => {
 
 app.post("/", (req, res) => {
 	const city = req.body.cityName;
-	
+
 	const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-	
+
 	https.get(url, (response) => {
 		response.on("data", (data) => {
 			const weatherData = JSON.parse(data);
@@ -28,13 +28,13 @@ app.post("/", (req, res) => {
 			const weatherDescription = weatherData.weather[0].description;
 			const icon = weatherData.weather[0].icon;
 			const imageURL = `http://openweathermap.org/img/wn/${icon}@2x.png`;
-	
+
 			res.write(`<p>The weather is currently ${weatherDescription}</p>`);
 			res.write(`<h1>The current temperature in ${city} is ${temp} degrees</h1>`);
 			res.write(`<img src="${imageURL}">`);
 			res.send();
 		});
-	}); 
+	});
 });
 
 
